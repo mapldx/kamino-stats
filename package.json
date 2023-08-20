@@ -9,12 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "autoprefixer": "10.4.15",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.3",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
+    "moment": "^2.29.4",
     "next": "13.4.19",
+    "numeral": "^2.0.6",
     "postcss": "8.4.28",
     "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3"
   }
