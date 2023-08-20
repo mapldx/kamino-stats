@@ -7,6 +7,7 @@ export default function Stats() {
   const [error, setError] = useState(null);
   const [depositorData, setDepositorData] = useState(null);
   const [feesData, setFeesData] = useState(null);
+  const [volumeData, setVolumeData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +30,12 @@ export default function Stats() {
           },
         });
         setFeesData(feesResponse.data);
+        const volumeResponse = await axios.get('http://localhost:3000/api/volume', {
+          params: {
+            today: true,
+          },
+        });
+        setVolumeData(volumeResponse.data);
       } catch (err) {
         console.error(err);
         setError(err);
@@ -122,6 +129,33 @@ export default function Stats() {
             </svg>
 
             {feesData ? <p className="text-xs font-medium">${numeral(feesData.data.change).format('0.00a')}</p> : ''}
+          </div>
+        </article>
+
+        <article
+          className="flex items-end justify-between rounded-lg border border-gray-100 bg-white p-6"
+        >
+          <div>
+            <p className="text-sm text-gray-500">Total Volume</p>
+            { volumeData ? <p className="text-2xl font-medium text-gray-900">${numeral(volumeData.data.today).format('0.00a')}</p> : 'Loading...' }
+          </div>
+
+          <div className="inline-flex gap-2 rounded bg-red-100 p-1 text-red-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+              />
+            </svg>
+            { volumeData ? <p className="text-xs font-medium">{parseFloat(volumeData.data.change).toPrecision(3)}%</p> : '' }
           </div>
         </article>
       </div>

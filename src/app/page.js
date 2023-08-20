@@ -9,11 +9,13 @@ import Stats from '../components/stats';
 import TVLChart from '@/components/charts/tvl';
 import DepositorChart from '@/components/charts/depositor';
 import FeesChart from '@/components/charts/fees';
+import VolumeChart from '@/components/charts/volume';
 
 function HomePage() {
   const [data, setData] = useState(null);
   const [depositorData, setDepositorData] = useState(null);
   const [feesData, setFeesData] = useState(null);
+  const [volumeData, setVolumeData] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/tvl?sort=date').then(function (response) {
@@ -24,6 +26,9 @@ function HomePage() {
     });
     axios.get('http://localhost:3000/api/fees?sort=date').then(function (response) {
       setFeesData(response.data.data);
+    });
+    axios.get('http://localhost:3000/api/volume?sort=date').then(function (response) {
+      setVolumeData(response.data.data);
     });
   }, []);
 
@@ -57,6 +62,9 @@ function HomePage() {
       <div className="grid grid-cols-2 gap-4 px-24 py-16">
         <div>
           {feesData ? <FeesChart feesByDate={feesData} /> : 'Loading...'}
+        </div>
+        <div>
+          {volumeData ? <VolumeChart volume_bydate={volumeData} /> : 'Loading...'}
         </div>
       </div>
     </>
