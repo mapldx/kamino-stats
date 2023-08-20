@@ -6,6 +6,7 @@ export default function Stats() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [depositorData, setDepositorData] = useState(null);
+  const [feesData, setFeesData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +23,12 @@ export default function Stats() {
           },
         });
         setDepositorData(depositorResponse.data);
+        const feesResponse = await axios.get('http://localhost:3000/api/fees', {
+          params: {
+            today: true,
+          },
+        });
+        setFeesData(feesResponse.data);
       } catch (err) {
         console.error(err);
         setError(err);
@@ -86,6 +93,35 @@ export default function Stats() {
             </svg>
 
             {depositorData ? <p className="text-xs font-medium">{depositorData.data.change}</p> : ''}
+          </div>
+        </article>
+      </div>
+      <div>
+        <article
+          className="flex items-end justify-between rounded-lg border border-gray-100 bg-white p-6 mb-5"
+        >
+          <div>
+            <p className="text-sm text-gray-500">Total Fees Collected</p>
+            {feesData ? <p className="text-2xl font-medium text-gray-900">${numeral(feesData.data.today).format('0.00a')}</p> : 'Loading...'}
+          </div>
+
+          <div className="inline-flex gap-2 rounded bg-green-100 p-1 text-green-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
+            </svg>
+
+            {feesData ? <p className="text-xs font-medium">${numeral(feesData.data.change).format('0.00a')}</p> : ''}
           </div>
         </article>
       </div>
