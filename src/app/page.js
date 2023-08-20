@@ -11,11 +11,14 @@ import DepositorChart from '@/components/charts/depositor';
 import FeesChart from '@/components/charts/fees';
 import VolumeChart from '@/components/charts/volume';
 
+import Leaderboard from '@/components/leaderboard';
+
 function HomePage() {
   const [data, setData] = useState(null);
   const [depositorData, setDepositorData] = useState(null);
   const [feesData, setFeesData] = useState(null);
   const [volumeData, setVolumeData] = useState(null);
+  const [leaderboard, setLeaderboard] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/tvl?sort=date').then(function (response) {
@@ -29,6 +32,9 @@ function HomePage() {
     });
     axios.get('http://localhost:3000/api/volume?sort=date').then(function (response) {
       setVolumeData(response.data.data);
+    });
+    axios.get('http://localhost:3000/api/leaderboard?view=true').then(function (response) {
+      setLeaderboard(response.data.json);
     });
   }, []);
 
@@ -65,6 +71,18 @@ function HomePage() {
         </div>
         <div>
           {volumeData ? <VolumeChart volume_bydate={volumeData} /> : 'Loading...'}
+        </div>
+      </div>
+      <div className="bg-gray-900 px-6 mt-12 mb-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-4xl font-bold tracking-tight text-white">Discover strategies</h2>
+          <p className="mt-6 text-md leading-8 text-gray-300">
+            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
+            fugiat veniam occaecat fugiat aliqua.
+          </p>
+        </div>
+        <div className="px-24 mt-12">
+          {leaderboard ? <Leaderboard leaderboard={leaderboard} /> : 'Loading...'}
         </div>
       </div>
     </>
