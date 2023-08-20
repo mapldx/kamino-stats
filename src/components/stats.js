@@ -64,11 +64,7 @@ export default function Stats() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                { data ? data.data.change > 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /> : ''}
             </svg>
             {data ? <p className="text-xs font-medium bg-green-500">{data.data.change}</p> : ''}
           </div>
@@ -91,12 +87,7 @@ export default function Stats() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-              />
+              { depositorData ? parseFloat(depositorData.data.change) > 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /> : ''}
             </svg>
 
             {depositorData ? <p className="text-xs font-medium">{depositorData.data.change}</p> : ''}
@@ -120,12 +111,7 @@ export default function Stats() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              />
+              { feesData ? feesData.data.change > 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /> : ''}
             </svg>
 
             {feesData ? <p className="text-xs font-medium">${numeral(feesData.data.change).format('0.00a')}</p> : ''}
@@ -148,12 +134,7 @@ export default function Stats() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-              />
+              { volumeData ? volumeData.data.change > 0 ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /> : ''}
             </svg>
             { volumeData ? <p className="text-xs font-medium">{parseFloat(volumeData.data.change).toPrecision(3)}%</p> : '' }
           </div>
