@@ -35,29 +35,31 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Total TVL Chart (USD)',
+      text: 'Daily Fees & Rewards (USD)',
     },
   },
 };
 
-function TVLChart({ tvl_bydate }) {
-  const labels = tvl_bydate.map(item => item.date);
+function FeesChart({ feesByDate }) {
+  const dates = feesByDate.map(d => d.date);
+  const fees = feesByDate.map(d => d.feesAndRewards24hUsd);
+
   const data = {
-    labels,
+    labels: dates,
     datasets: [
       {
-        label: 'Total TVL',
-        data: tvl_bydate.map(item => item.totalTvl),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        fill: { target: 'origin', above: 'rgba(255, 99, 132, 0.3)' },
+        label: 'Daily Fees (USD)',
+        data: fees,
+        borderColor: 'rgb(30, 144, 255)',
+        backgroundColor: 'rgba(30, 144, 255, 0.2)',
+        fill: { target: 'origin', above: 'rgba(30, 144, 255, 0.3)' },
         pointRadius: 1,
         pointHoverRadius: 7,
-      },
-    ],
+      }
+    ]
   };
 
   return <Line options={options} data={data} />;
 }
 
-export default TVLChart;
+export default FeesChart;
