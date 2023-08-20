@@ -8,7 +8,7 @@ let tvl_bydate = new Array();
 
 // provides for the following routes: /api/tvl, /api/tvl?sort=strategy, /api/tvl?sort=date, /api/tvl?today=true
 export async function GET(request) {
-  const {searchParams} = new URL(request.url);
+  const { searchParams } = new URL(request.url);
   if (searchParams.get('today') == "true") {
     let json = JSON.parse(fs.readFileSync('tvl_bydate.json', 'utf-8'));
     let tvlToday = json[json.length - 1].totalTvl;
@@ -47,6 +47,7 @@ async function get_strategies() {
 
 async function get_tvl(strategy) {
   const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + 1);
   const date = currentDate.toISOString().substring(0, 10);
 
   await axios.get(`https://api.hubbleprotocol.io/v2/strategies/${strategy}/history?env=mainnet-beta&start=2023-01-01&end=${date}&frequency=day`)

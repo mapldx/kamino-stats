@@ -1,20 +1,24 @@
 "use client";
 
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 import Header from '@/components/header';
 import Stats from '../components/stats';
 
 import TVLChart from '@/components/charts/tvl';
-
-import axios from 'axios';
+import DepositorChart from '@/components/charts/depositor';
 
 function HomePage() {
   const [data, setData] = useState(null);
+  const [depositorData, setDepositorData] = useState(null);
 
   useEffect(() => {
     axios.get('http://localhost:3000/api/tvl?sort=date').then(function (response) {
       setData(response.data.data);
+    });
+    axios.get('http://localhost:3000/api/depositor?sort=date').then(function (response) {
+      setDepositorData(response.data);
     });
   }, []);
 
@@ -36,10 +40,15 @@ function HomePage() {
         <div className="py-12 sm:py-16">
           <Stats />
         </div>
-        <div>
-          {data ? <TVLChart tvl_bydate={data} /> : 'Loading...'} {/* Conditional rendering based on data */}
-        </div>
       </div>
+      <div className="grid grid-cols-2 gap-4 px-24">
+          <div>
+            {data ? <TVLChart tvl_bydate={data} /> : 'Loading...'}
+          </div>
+          <div>
+            {depositorData ? <DepositorChart wallets_bydate={depositorData} /> : 'Loading...'}
+          </div>
+        </div>
     </>
   );
 }
