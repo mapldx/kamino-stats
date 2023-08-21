@@ -35,10 +35,7 @@ const PoolsTable = ({ pools }) => {
               TVL
             </th>
             <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-              TVL Over Time
-            </th>
-            <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-              Volume Over Time
+              Charts Over Time
             </th>
           </tr>
         </thead>
@@ -58,9 +55,6 @@ const PoolsTable = ({ pools }) => {
               </td>
               <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                 ${numeral(parseFloat(item.tvl)).format('0,0.00')}
-              </td>
-              <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                <button onClick={() => openModal(item.pool)} className='underline hover:opacity-50'>View Chart</button>
               </td>
               <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
                 <button onClick={() => openModal(item.pool)} className='underline hover:opacity-50'>View Chart</button>

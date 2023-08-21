@@ -30,9 +30,9 @@ const Portfolio = ({ portfolio }) => {
                     return (
                       <tr key={item.strategy} className="even:bg-gray-50 text-gray-600">
                         <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3 flex items-center">
-                          <img src={item.tokenAMetadata?.logoURI || item.tokenAMetadata?.image} className="w-auto h-4 mr-2" />
+                          <img src={item.tokenAMetadata?.logoURI || item.tokenAMetadata?.image || item.tokenAMetadata?.icon} className="w-auto h-4 mr-2" />
                           {item.tokenAMetadata?.symbol}&nbsp;-&nbsp;
-                          <img src={item.tokenBMetadata?.logoURI || item.tokenBMetadata?.image} className="w-auto h-4 mr-2" />
+                          <img src={item.tokenBMetadata?.logoURI || item.tokenBMetadata?.image || item.tokenBMetadata?.icon} className="w-auto h-4 mr-2" />
                           {item.tokenBMetadata?.symbol}
                         </td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.strategy.substr(0, 25) + '...'}</td>

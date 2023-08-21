@@ -2,12 +2,6 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import fs from "fs";
 
-import { Kamino } from '@hubbleprotocol/kamino-sdk';
-import { Connection } from '@solana/web3.js';
-import Decimal from 'decimal.js';
-
-const CLUSTER_URL = 'https://rpc.helius.xyz/?api-key=0ce5ed50-04ac-4e67-95e0-ecab50b041aa';
-
 let strategies = new Array();
 let shareholders_bystrategy = new Array();
 let shareholders_bydate = new Array();

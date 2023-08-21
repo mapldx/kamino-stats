@@ -62,7 +62,7 @@ const PoolModal = ({ pool, onClose }) => {
   }, []);
 
   return (
-    <div className="modal" onClick={handleOutsideClick}>
+    <div className="modal z-50" onClick={handleOutsideClick}>
       <div className="modal-content">
         <span className="close-button" onClick={onClose}>&times;</span>
         <div className="flex items-center justify-center h-1/2">

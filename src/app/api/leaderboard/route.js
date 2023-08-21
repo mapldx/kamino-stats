@@ -29,31 +29,91 @@ async function interpret_strategy() {
     try {
       strategy.tokenAMint = token.a;
       strategy.tokenBMint = token.b;
-      let data = JSON.stringify({
-        "mintAccounts": [
-          token.a,
-          token.b
-        ],
-        "includeOffChain": true,
-        "disableCache": false
-      });
-      await axios.post('https://api.helius.xyz/v0/token-metadata?api-key=0ce5ed50-04ac-4e67-95e0-ecab50b041aa', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(function (response) {
-        let tokenA = response.data[0];
-        let tokenB = response.data[1];
-        strategy.tokenAMetadata = tokenA.offChainMetadata.metadata;
-        strategy.tokenBMetadata = tokenB.offChainMetadata.metadata;
-        if (strategy.tokenAMetadata == null) {
-          strategy.tokenAMetadata = tokenA.legacyMetadata;
-        }
-        if (strategy.tokenBMetadata == null) {
-          strategy.tokenBMetadata = tokenB.legacyMetadata;
-        }
-      });
+      if (process.env.INTERPRET_WITH == "HELIUS") {
+        let data = JSON.stringify({
+          "mintAccounts": [
+            token.a,
+            token.b
+          ],
+          "includeOffChain": true,
+          "disableCache": false
+        });
+        await axios.post(`https://api.helius.xyz/v0/token-metadata?api-key=${process.env.HELIUS_API_KEY}`, data, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(function (response) {
+          let tokenA = response.data[0];
+          let tokenB = response.data[1];
+          strategy.tokenAMetadata = tokenA.offChainMetadata.metadata;
+          strategy.tokenBMetadata = tokenB.offChainMetadata.metadata;
+          if (strategy.tokenAMetadata == null) {
+            strategy.tokenAMetadata = tokenA.legacyMetadata;
+          }
+          if (strategy.tokenBMetadata == null) {
+            strategy.tokenBMetadata = tokenB.legacyMetadata;
+          }
+        });
+      } else if (process.env.INTERPRET_WITH == "SOLSCAN") {
+        let url = `https://api.solscan.io/account?address=${token.a}`;
+        let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: url,
+          headers: { 
+            'authority': 'api.solscan.io', 
+            'accept': 'application/json, text/plain, */*', 
+            'accept-language': 'en-US,en;q=0.9', 
+            'if-none-match': 'W/"516-wor81cMsDp6r4sky8HMrdt2fGNw"', 
+            'origin': 'https://solscan.io', 
+            'referer': 'https://solscan.io/', 
+            'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Brave";v="116"', 
+            'sec-ch-ua-mobile': '?1', 
+            'sec-ch-ua-platform': '"Android"', 
+            'sec-fetch-dest': 'empty', 
+            'sec-fetch-mode': 'cors', 
+            'sec-fetch-site': 'same-site', 
+            'sec-gpc': '1', 
+            'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36', 
+          }
+        };
+        await axios.request(config)
+          .then(async function (tokenA) {
+            strategy.tokenAMetadata = tokenA.data.data.tokenInfo;
+            url = `https://api.solscan.io/account?address=${token.b}`;
+            config = {
+              method: 'get',
+              maxBodyLength: Infinity,
+              url: url,
+              headers: { 
+                'authority': 'api.solscan.io', 
+                'accept': 'application/json, text/plain, */*', 
+                'accept-language': 'en-US,en;q=0.9', 
+                'if-none-match': 'W/"516-wor81cMsDp6r4sky8HMrdt2fGNw"', 
+                'origin': 'https://solscan.io', 
+                'referer': 'https://solscan.io/', 
+                'sec-ch-ua': '"Chromium";v="116", "Not)A;Brand";v="24", "Brave";v="116"', 
+                'sec-ch-ua-mobile': '?1', 
+                'sec-ch-ua-platform': '"Android"', 
+                'sec-fetch-dest': 'empty', 
+                'sec-fetch-mode': 'cors', 
+                'sec-fetch-site': 'same-site', 
+                'sec-gpc': '1', 
+                'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36', 
+              }
+            };
+            await axios.request(config)
+              .then(function (tokenB) {
+                console.log(tokenB);
+                strategy.tokenBMetadata = tokenB.data.data.tokenInfo;
+              })
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      }
     } catch (error) {
+      console.log(error);
       strategy.tokenAMint = null;
       strategy.tokenBMint = null;
     }
