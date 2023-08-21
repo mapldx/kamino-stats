@@ -1,3 +1,8 @@
+const navigation = [
+  { name: 'Protocol', href: '/' },
+  { name: 'Pools', href: '/pools' },
+]
+
 export default function Example() {
 
   return (
@@ -7,6 +12,13 @@ export default function Example() {
           <a href="#" className="-m-1.5 p-1.5">
             <img className="h-8 w-auto" src="https://app.kamino.finance/assets/logo.8c6a15ef.svg" alt="" />
           </a>
+        </div>
+        <div className="flex gap-x-12">
+          {navigation.map((item) => (
+            <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-white">
+              {item.name}
+            </a>
+          ))}
         </div>
         <div className="flex flex-1 justify-end">
           <a href="https://app.kamino.finance/" className="text-sm font-semibold leading-6 text-white">

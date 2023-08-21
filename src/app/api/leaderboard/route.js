@@ -61,6 +61,7 @@ async function interpret_strategy() {
 }
 
 async function get_strategies(strategy) {
+  // TODO: update all get_strategies to utilize local file and create a method to sync this local file with the API with just one call
   // let response = await axios.get('https://api.hubbleprotocol.io/strategies/enabled?env=mainnet-beta');
   // let strategies = response.data;
   let strategies = await JSON.parse(fs.readFileSync('strategies.json', 'utf-8'));

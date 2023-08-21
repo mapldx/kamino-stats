@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import numeral from 'numeral';
 
-import PoolModal from './pool';
+import PoolModal from './modals/pool';
 
 const PoolsTable = ({ pools }) => {
   pools = pools.filter((item) => parseFloat(item.tvl) > 1);
@@ -35,7 +35,10 @@ const PoolsTable = ({ pools }) => {
               TVL
             </th>
             <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
-              View More?
+              TVL Over Time
+            </th>
+            <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
+              Volume Over Time
             </th>
           </tr>
         </thead>
@@ -57,7 +60,10 @@ const PoolsTable = ({ pools }) => {
                 ${numeral(parseFloat(item.tvl)).format('0,0.00')}
               </td>
               <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                <button onClick={() => openModal(item.pool)}>More Stats</button>
+                <button onClick={() => openModal(item.pool)} className='underline hover:opacity-50'>View Chart</button>
+              </td>
+              <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
+                <button onClick={() => openModal(item.pool)} className='underline hover:opacity-50'>View Chart</button>
               </td>
             </tr>
           ))}
