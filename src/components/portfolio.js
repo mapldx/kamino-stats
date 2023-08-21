@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const Portfolio = ({ portfolio }) => {
   const [showAll, setShowAll] = useState(false);
+  console.log(portfolio);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -22,6 +23,8 @@ const Portfolio = ({ portfolio }) => {
                   <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">Token Pair</th>
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Strategy</th>
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Shareholder?</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Latest Position (PnL)</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Chart Over Time</th>
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -37,6 +40,8 @@ const Portfolio = ({ portfolio }) => {
                         </td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.strategy.substr(0, 25) + '...'}</td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.isShareholder ? '✅' : '❌'}</td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{parseFloat(item.position?.current?.totalPnl?.sol).toPrecision(3) + " ◎ ($" + parseFloat(item.position?.current?.totalPnl.usd).toPrecision(4) + ")" || '(no position found)'}</td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">Coming soon</td>
                       </tr>
                     );
                   }

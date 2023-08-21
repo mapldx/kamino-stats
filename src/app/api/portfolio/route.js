@@ -14,7 +14,7 @@ export async function GET(request) {
 
   const result = strategies.map(strategy => {
     const shareholderData = shareholders_bystrategy.find(item => item.strategy === strategy.address);
-    if (!shareholderData) return null; // Skip if no matching data
+    if (!shareholderData) return null;
 
     if (shareholderData.shareholders.length > 0) {
       const recentShareholders = shareholderData.shareholders[shareholderData.shareholders.length - 1].uniqueWallets;
@@ -29,7 +29,8 @@ export async function GET(request) {
   portfolio = portfolio.filter(function (el) {
     return el != null;
   });
-  portfolio = await interpret_strategy();
+  await get_pnl(address);
+  // portfolio = await interpret_strategy();
   return NextResponse.json({ portfolio }, { status: 200 });
 }
 
@@ -55,6 +56,29 @@ async function get_strategy(strategy) {
         b: element.tokenBMint || null
       };
     }
+  }
+}
+
+async function get_pnl(shareholder) {
+  for (const strategy of portfolio) {
+    let address = strategy.strategy;
+    let current = `https://api.hubbleprotocol.io/strategies/${address}/shareholders/${shareholder}/pnl?env=mainnet-beta`;
+    let history = `https://api.hubbleprotocol.io/strategies/${address}/shareholders/${shareholder}/pnl/history?env=mainnet-beta`;
+    strategy.position = {};
+    await axios.get(current)
+      .then(async function (pnl) {
+        strategy.position.current = pnl.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    await axios.get(history)
+      .then(async function (history) {
+        strategy.position.history = history.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 }
 
