@@ -1,6 +1,7 @@
 const navigation = [
   { name: 'Protocol', href: '/' },
   { name: 'Pools', href: '/pools' },
+  { name: 'Portfolio', href: '/portfolio' },
 ]
 
 export default function Example() {
