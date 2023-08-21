@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import numeral from 'numeral';
 
-import PoolModal from './more';
+import PoolModal from './pool';
 
 const PoolsTable = ({ pools }) => {
   pools = pools.filter((item) => parseFloat(item.tvl) > 1);

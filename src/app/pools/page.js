@@ -20,7 +20,7 @@ function HomePage() {
       <Header />
       <div className="bg-gray-900 px-6 mt-12 mb-24">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-white">Investigate dex pools</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-white">Investigate pools</h2>
           <p className="mt-6 text-md leading-8 text-gray-300">
             Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
             fugiat veniam occaecat fugiat aliqua.
