@@ -35,7 +35,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Total Volume Chart (USD)',
+      text: 'Daily Volume Chart (USD)',
     },
   },
 };
