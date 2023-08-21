@@ -59,18 +59,34 @@ function HomePage() {
       </div>
       <div className="grid grid-cols-2 gap-4 px-24">
         <div>
-          {data ? <TVLChart tvl_bydate={data} /> : 'Loading...'}
+          {data ? <TVLChart tvl_bydate={data} /> : (
+            <div className="flex justify-center items-center">
+              <div className="spinner"></div>
+            </div>
+          )}
         </div>
         <div>
-          {depositorData ? <DepositorChart wallets_bydate={depositorData} /> : 'Loading...'}
+          {depositorData ? <DepositorChart wallets_bydate={depositorData} /> : (
+            <div className="flex justify-center items-center">
+              <div className="spinner"></div>
+            </div>
+          )}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 px-24 py-16">
         <div>
-          {feesData ? <FeesChart feesByDate={feesData} /> : 'Loading...'}
+          {feesData ? <FeesChart feesByDate={feesData} /> : (
+            <div className="flex justify-center items-center">
+              <div className="spinner"></div>
+            </div>
+          )}
         </div>
         <div>
-          {volumeData ? <VolumeChart volume_bydate={volumeData} /> : 'Loading...'}
+          {volumeData ? <VolumeChart volume_bydate={volumeData} /> : (
+            <div className="flex justify-center items-center">
+              <div className="spinner"></div>
+            </div>
+          )}
         </div>
       </div>
       <div className="bg-gray-900 px-6 mt-12 mb-24">

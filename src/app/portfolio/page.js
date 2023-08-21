@@ -47,7 +47,11 @@ const WalletContent = () => {
       ) : (
         <div>
           <div className="px-24 py-12">
-            {portfolioData && <Portfolio portfolio={portfolioData} /> || 'Loading...'}
+            {portfolioData ? <Portfolio portfolio={portfolioData} /> : (
+              <div className="flex justify-center items-center">
+                <div className="spinner"></div>
+              </div>
+            )}
             <div className="flex items-center justify-center mt-6">
               <WalletDisconnectButton />
             </div>

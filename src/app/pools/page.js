@@ -27,7 +27,11 @@ function HomePage() {
           </p>
         </div>
         <div className="mt-12 px-24">
-          {pools ? <Pools pools={pools} /> : 'Loading...'}
+          {pools ? <Pools pools={pools} /> : (
+            <div className="flex justify-center items-center">
+              <div className="spinner"></div>
+            </div>
+          )}
         </div>
       </div>
     </>
