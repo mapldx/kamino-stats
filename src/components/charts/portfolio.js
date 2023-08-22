@@ -24,7 +24,6 @@ ChartJS.register(
 
 const LineChart = ({ data }) => {
   data = data.position;
-  console.log(data);
 
   const timestamps = data.history.history.map(item => new Date(item.timestamp).toLocaleDateString());
   const usdValues = data.history.history.map(item => item.positionValue.usd);

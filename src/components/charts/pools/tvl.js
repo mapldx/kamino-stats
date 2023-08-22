@@ -23,7 +23,6 @@ ChartJS.register(
 );
 
 const TvlChart = ({ data }) => {
-  console.log(data);
   if (!data || !data.data || !data.data.items) return <div>Error loading data</div>;
 
   const items = data.data.items;

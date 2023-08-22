@@ -9,7 +9,7 @@ let metadata = new Array();
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('search') == 'true') {
-    let json = JSON.parse(fs.readFileSync('pools.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'pools.json', 'utf-8'));
     try {
       for (const item of json) {
         for (const pool of item) {
@@ -23,11 +23,11 @@ export async function GET(request) {
     }
     await interpret_pool(searchParams.get('pool'));
     json.push(metadata);
-    fs.writeFileSync('pools.json', JSON.stringify(json));
+    fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'pools.json', JSON.stringify(json));
     return NextResponse.json({ metadata }, { status: 200 });
   }
   if (searchParams.get('consolidate') == 'true') {
-    let json = JSON.parse(fs.readFileSync('pools.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'pools.json', 'utf-8'));
     await get_pools();
     for (const origin of pools) {
       for (const item of json) {

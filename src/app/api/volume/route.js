@@ -9,7 +9,7 @@ const volumeByDate = [];
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('today') == "true") {
-    let json = JSON.parse(fs.readFileSync('volume_bydate.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'volume_bydate.json', 'utf-8'));
     let volumeToday;
     await axios.get('https://api.hubbleprotocol.io/strategies/all-time-volume?env=mainnet-beta')
       .then(function (response) {
@@ -26,10 +26,10 @@ export async function GET(request) {
     return NextResponse.json({ data }, { status: 200 });
   }
   if (searchParams.get('sort') == "strategy") {
-    // let data = JSON.parse(fs.readFileSync('volume_bystrategy.json', 'utf-8'));
+    // let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'volume_bystrategy.json', 'utf-8'));
     // return NextResponse.json({ data }, { status: 200 });
   } else if (searchParams.get('sort') == "date") {
-    let data = JSON.parse(fs.readFileSync('volume_bydate.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'volume_bydate.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   }
   await get_strategies();
@@ -47,7 +47,7 @@ export async function GET(request) {
     cumulativeVolume += entry.volume24hUsd;
     volumeByDate[index].cumulativeVolume = cumulativeVolume;
   });
-  fs.writeFileSync('volume_bydate.json', JSON.stringify(volumeByDate));
+  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'volume_bydate.json', JSON.stringify(volumeByDate));
   return NextResponse.json({ volumeByDate }, { status: 200 });
 }
 

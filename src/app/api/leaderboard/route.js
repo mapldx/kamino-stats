@@ -7,12 +7,12 @@ let leaderboard = new Array();
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('view') == "true") {
-    let json = JSON.parse(fs.readFileSync('leaderboard.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'leaderboard.json', 'utf-8'));
     return NextResponse.json({ json }, { status: 200 });
   }
   await get_leaderboard();
   await interpret_strategy();
-  fs.writeFileSync('leaderboard.json', JSON.stringify(leaderboard));
+  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'leaderboard.json', JSON.stringify(leaderboard));
   return NextResponse.json({ leaderboard }, { status: 200 });
 }
 
@@ -104,16 +104,13 @@ async function interpret_strategy() {
             };
             await axios.request(config)
               .then(function (tokenB) {
-                console.log(tokenB);
                 strategy.tokenBMetadata = tokenB.data.data.tokenInfo;
               })
           })
           .catch(function (error) {
-            console.log(error);
           })
       }
     } catch (error) {
-      console.log(error);
       strategy.tokenAMint = null;
       strategy.tokenBMint = null;
     }
@@ -124,7 +121,7 @@ async function get_strategies(strategy) {
   // TODO: update all get_strategies to utilize local file and create a method to sync this local file with the API with just one call
   // let response = await axios.get('https://api.hubbleprotocol.io/strategies/enabled?env=mainnet-beta');
   // let strategies = response.data;
-  let strategies = await JSON.parse(fs.readFileSync('strategies.json', 'utf-8'));
+  let strategies = await JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'strategies.json', 'utf-8'));
   for (const element of strategies) {
     if (element.address === strategy) {
       return {
@@ -134,3 +131,4 @@ async function get_strategies(strategy) {
     }
   }
 }
+

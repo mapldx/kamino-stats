@@ -9,7 +9,7 @@ const feesByDate = [];
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('today') == "true") {
-    let json = JSON.parse(fs.readFileSync('fees_bydate.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', 'utf-8'));
     let feesToday;
     await axios.get('https://api.hubbleprotocol.io/strategies/all-time-fees-and-rewards')
       .then(function (response) {
@@ -26,10 +26,10 @@ export async function GET(request) {
     return NextResponse.json({ data }, { status: 200 });
   }
   if (searchParams.get('sort') == "strategy") {
-    // let data = JSON.parse(fs.readFileSync('fees_bystrategy.json', 'utf-8'));
+    // let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bystrategy.json', 'utf-8'));
     // return NextResponse.json({ data }, { status: 200 });
   } else if (searchParams.get('sort') == "date") {
-    let data = JSON.parse(fs.readFileSync('fees_bydate.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   }
   await get_strategies();
@@ -41,7 +41,7 @@ export async function GET(request) {
     const dateB = new Date(b.date);
     return dateA - dateB;
   });
-  fs.writeFileSync('fees_bydate.json', JSON.stringify(feesByDate));
+  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', JSON.stringify(feesByDate));
   return NextResponse.json({ feesByDate }, { status: 200 });
 }
 
@@ -62,8 +62,7 @@ async function get_fees(strategy) {
   await axios.get(`https://api.hubbleprotocol.io/strategies/${strategy}/metrics/history?env=mainnet-beta&start=2023-01-01&end=${date}`)
     .then(function (response) {
       response.data.forEach(entry => {
-        if (entry.date.endsWith("23:00:00.000Z")) {
-          console.log(strategy, entry);
+        if (entry.date.endsWith("00:00:00.000Z")) {
           const date = entry.date.slice(0, 10);
           const index = feesByDate.findIndex(d => d.date === date);
 
