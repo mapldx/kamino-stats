@@ -60,9 +60,9 @@ const Leaderboard = ({ leaderboard }) => {
                   <tr key={item.strategy} className="even:bg-gray-50 text-gray-600">
                     {item.tokenAMint && item.tokenBMint ?
                       <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3 flex items-center">
-                        <img src={item.tokenAMetadata.image || item.tokenAMetadata.logoURI || item.tokenAMetadata.icon} className="w-auto h-4 mr-2" />
+                        <img src={item.tokenAMetadata.icon} className="w-auto h-4 mr-2" />
                         {item.tokenAMetadata.symbol}&nbsp;-&nbsp;
-                        <img src={item.tokenBMetadata.image || item.tokenBMetadata.logoURI || item.tokenBMetadata.icon} className="w-auto h-4 mr-2" />
+                        <img src={item.tokenBMetadata.icon} className="w-auto h-4 mr-2" />
                         {item.tokenBMetadata.symbol}
                       </td>
                       : <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">(unable to retrieve)</td>}
