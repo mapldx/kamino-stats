@@ -5,6 +5,6 @@ module.exports = {
   env: {
     INTERPRET_WITH: 'SOLSCAN', // SOLSCAN, only for testing or HELIUS, for use in production
     HELIUS_API_KEY: '',
-    ENDPOINT_URL: 'http://localhost:3000/api',
+    ENDPOINT_URL: 'https://kamino-stats-rho.vercel.app/',
   },
 }

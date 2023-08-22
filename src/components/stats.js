@@ -12,25 +12,25 @@ export default function Stats() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/tvl', {
+        const response = await axios.get('https://kamino-stats-rho.vercel.app/api/tvl', {
           params: {
             today: true,
           },
         });
         setData(response.data);
-        const depositorResponse = await axios.get('http://localhost:3000/api/depositor', {
+        const depositorResponse = await axios.get('https://kamino-stats-rho.vercel.app/api/depositor', {
           params: {
             today: true,
           },
         });
         setDepositorData(depositorResponse.data);
-        const feesResponse = await axios.get('http://localhost:3000/api/fees', {
+        const feesResponse = await axios.get('https://kamino-stats-rho.vercel.app/api/fees', {
           params: {
             today: true,
           },
         });
         setFeesData(feesResponse.data);
-        const volumeResponse = await axios.get('http://localhost:3000/api/volume', {
+        const volumeResponse = await axios.get('https://kamino-stats-rho.vercel.app/api/volume', {
           params: {
             today: true,
           },

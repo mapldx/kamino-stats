@@ -64,7 +64,7 @@ const Portfolio = ({ portfolio }) => {
                 })}
               </tbody>
             </table>
-            <div className="text-center mt-4"> {/* This is the div to center the button */}
+            <div className="text-center mt-4">
               <button onClick={() => setShowAll(!showAll)} className="bg-blue-600 text-white py-2 px-4 rounded text-sm">
                 {showAll ? 'Hide non-shareholder strategies' : 'Show all'}
               </button>

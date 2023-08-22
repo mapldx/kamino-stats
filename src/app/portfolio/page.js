@@ -28,7 +28,7 @@ const WalletContent = () => {
       // const address = publicKey?.toBase58();
       const address = "8PhAFNi714pfG5HnufLVNEpASrnF7Qvu79sf3w21paKJ"
       axios
-        .get(`http://localhost:3000/api/portfolio?address=${address}`)
+        .get(`https://kamino-stats-rho.vercel.app/api/portfolio?address=${address}`)
         .then((response) => {
           setPortfolioData(response.data.portfolio);
         })

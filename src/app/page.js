@@ -21,19 +21,19 @@ function HomePage() {
   const [leaderboard, setLeaderboard] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/tvl?sort=date').then(function (response) {
+    axios.get('https://kamino-stats-rho.vercel.app/api/tvl?sort=date').then(function (response) {
       setData(response.data.data);
     });
-    axios.get('http://localhost:3000/api/depositor?sort=date').then(function (response) {
+    axios.get('https://kamino-stats-rho.vercel.app/api/depositor?sort=date').then(function (response) {
       setDepositorData(response.data);
     });
-    axios.get('http://localhost:3000/api/fees?sort=date').then(function (response) {
+    axios.get('https://kamino-stats-rho.vercel.app/api/fees?sort=date').then(function (response) {
       setFeesData(response.data.data);
     });
-    axios.get('http://localhost:3000/api/volume?sort=date').then(function (response) {
+    axios.get('https://kamino-stats-rho.vercel.app/api/volume?sort=date').then(function (response) {
       setVolumeData(response.data.data);
     });
-    axios.get('http://localhost:3000/api/leaderboard?view=true').then(function (response) {
+    axios.get('https://kamino-stats-rho.vercel.app/api/leaderboard?view=true').then(function (response) {
       setLeaderboard(response.data.json);
     });
   }, []);

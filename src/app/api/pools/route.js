@@ -43,7 +43,7 @@ export async function GET(request) {
   }
   await get_pools();
   for (const pool of pools) {
-    await axios.get(`http://localhost:3000/api/pools?search=true&pool=${pool.pool}`)
+    await axios.get(`https://kamino-stats-rho.vercel.app/api/pools?search=true&pool=${pool.pool}`)
   }
   return NextResponse.json({ pools }, { status: 200 });
 }
