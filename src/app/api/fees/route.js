@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import fs from "fs";
+import path from "path";
+
+let directory = path.join(process.cwd(), 'json');
 
 const strategies = [];
 const feesByDate = [];
@@ -9,7 +12,7 @@ const feesByDate = [];
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('today') == "true") {
-    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(directory + "/" +'fees_bydate.json', 'utf-8'));
     let feesToday;
     await axios.get('https://api.hubbleprotocol.io/strategies/all-time-fees-and-rewards')
       .then(function (response) {
@@ -26,10 +29,10 @@ export async function GET(request) {
     return NextResponse.json({ data }, { status: 200 });
   }
   if (searchParams.get('sort') == "strategy") {
-    // let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bystrategy.json', 'utf-8'));
+    // let data = JSON.parse(fs.readFileSync(directory + "/" +'fees_bystrategy.json', 'utf-8'));
     // return NextResponse.json({ data }, { status: 200 });
   } else if (searchParams.get('sort') == "date") {
-    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(directory + "/" +'fees_bydate.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   }
   await get_strategies();
@@ -41,7 +44,7 @@ export async function GET(request) {
     const dateB = new Date(b.date);
     return dateA - dateB;
   });
-  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'fees_bydate.json', JSON.stringify(feesByDate));
+  fs.writeFileSync(directory + "/" +'fees_bydate.json', JSON.stringify(feesByDate));
   return NextResponse.json({ feesByDate }, { status: 200 });
 }
 

@@ -1,5 +1,3 @@
-import path from 'path';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {}
 
@@ -8,6 +6,5 @@ module.exports = {
     INTERPRET_WITH: 'SOLSCAN', // SOLSCAN, only for testing or HELIUS, for use in production
     HELIUS_API_KEY: '',
     ENDPOINT_URL: 'https://kamino-stats-rho.vercel.app/api',
-    FS_DIRECTORY: path.join(process.cwd(), 'json'),
   },
 }

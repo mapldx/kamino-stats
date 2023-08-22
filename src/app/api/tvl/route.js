@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
+
 import axios from "axios";
 import fs from "fs";
+import path from "path";
+
+let directory = path.join(process.cwd(), 'json');
 
 let strategies = new Array();
 let tvl_bystrategy = new Array();

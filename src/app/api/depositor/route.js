@@ -1,22 +1,25 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import fs from "fs";
+import path from "path";
 
 let strategies = new Array();
 let shareholders_bystrategy = new Array();
 let shareholders_bydate = new Array();
 
+let directory = path.join(process.cwd(), 'json');
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('sort') == "strategy") {
-    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'shareholders_bystrategy.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(directory + "/" +'shareholders_bystrategy.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   } else if (searchParams.get('sort') == "date") {
-    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'shareholders_bydate.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(directory + "/" +'shareholders_bydate.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   }
   if (searchParams.get('today') == "true") {
-    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'shareholders_bydate.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(directory + "/" +'shareholders_bydate.json', 'utf-8'));
     let shareholdersToday = json[Object.keys(json)[Object.keys(json).length - 1]].length;
     let shareholdersYesterday = json[Object.keys(json)[Object.keys(json).length - 2]].length;
     let data = {
@@ -64,7 +67,7 @@ async function get_shareholders(strategy) {
         shareholders: uniqueWalletsPerDay,
       };
       shareholders_bystrategy.push(nested);
-      fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'shareholders_bystrategy.json', JSON.stringify(shareholders_bystrategy));
+      fs.writeFileSync(directory + "/" +'shareholders_bystrategy.json', JSON.stringify(shareholders_bystrategy));
 
       let shareholders = {};
       shareholders_bystrategy.forEach(strategy => {
@@ -92,6 +95,6 @@ async function get_shareholders(strategy) {
         delete shareholders_bydate[key];
         shareholders_bydate[key] = value;
       }
-      fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'shareholders_bydate.json', JSON.stringify(shareholders_bydate));
+      fs.writeFileSync(directory + "/" +'shareholders_bydate.json', JSON.stringify(shareholders_bydate));
     })
 }
