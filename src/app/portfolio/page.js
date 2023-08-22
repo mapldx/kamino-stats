@@ -25,8 +25,8 @@ const WalletContent = () => {
 
   useEffect(() => {
     if (connected) {
-      // const address = publicKey?.toBase58();
-      const address = "8PhAFNi714pfG5HnufLVNEpASrnF7Qvu79sf3w21paKJ"
+      const address = publicKey?.toBase58();
+      // const address = "8PhAFNi714pfG5HnufLVNEpASrnF7Qvu79sf3w21paKJ"
       axios
         .get(`${process.env.ENDPOINT_URL}/portfolio?address=${address}`)
         .then((response) => {
