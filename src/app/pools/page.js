@@ -10,7 +10,7 @@ function HomePage() {
   const [pools, setPools] = useState(null);
 
   useEffect(() => {
-    axios.get('https://kamino-stats-rho.vercel.app/api/pools?consolidate=true').then(function (response) {
+    axios.get(`${process.env.ENDPOINT_URL}/pools?consolidate=true`).then(function (response) {
       setPools(response.data.pools);
     });
   }, []);

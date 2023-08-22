@@ -3,6 +3,8 @@ import { useState } from 'react';
 import PortfolioModal from './modals/portfolio';
 
 const Portfolio = ({ portfolio }) => {
+  console.log(portfolio);
+
   const [showAll, setShowAll] = useState(false);
   
   const [isModalOpen, setModalOpen] = useState(false);
