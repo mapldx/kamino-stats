@@ -14,7 +14,7 @@ let tvl_bydate = new Array();
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   if (searchParams.get('today') == "true") {
-    let json = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'tvl_bydate.json', 'utf-8'));
+    let json = JSON.parse(fs.readFileSync(directory + "/" +'tvl_bydate.json', 'utf-8'));
     let tvlToday = json[json.length - 1].totalTvl;
     let tvlYesterday = json[json.length - 2].totalTvl;
     let data = {
@@ -25,18 +25,18 @@ export async function GET(request) {
     return NextResponse.json({ data }, { status: 200 });
   }
   if (searchParams.get('sort') == "strategy") {
-    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'tvl_bystrategy.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(directory + "/" +'tvl_bystrategy.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   } else if (searchParams.get('sort') == "date") {
-    let data = JSON.parse(fs.readFileSync(process.env.FS_DIRECTORY + "/" +'tvl_bydate.json', 'utf-8'));
+    let data = JSON.parse(fs.readFileSync(directory + "/" +'tvl_bydate.json', 'utf-8'));
     return NextResponse.json({ data }, { status: 200 });
   }
   await get_strategies();
   await Promise.all(strategies.map(async (strategy) => {
     await get_tvl(strategy);
   }));
-  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'tvl_bystrategy.json', JSON.stringify(tvl_bystrategy));
-  fs.writeFileSync(process.env.FS_DIRECTORY + "/" +'tvl_bydate.json', JSON.stringify(tvl_bydate));
+  fs.writeFileSync(directory + "/" +'tvl_bystrategy.json', JSON.stringify(tvl_bystrategy));
+  fs.writeFileSync(directory + "/" +'tvl_bydate.json', JSON.stringify(tvl_bydate));
   return NextResponse.json({ tvl_bydate }, { status: 200 });
 }
 
