@@ -30,7 +30,7 @@ export async function GET(request) {
     return el != null;
   });
   await get_pnl(address);
-  // portfolio = await interpret_strategy();
+  portfolio = await interpret_strategy();
   return NextResponse.json({ portfolio }, { status: 200 });
 }
 
@@ -163,7 +163,6 @@ async function interpret_strategy() {
             };
             await axios.request(config)
               .then(function (tokenB) {
-                console.log(tokenB);
                 strategy.tokenBMetadata = tokenB.data.data.tokenInfo;
               })
           })

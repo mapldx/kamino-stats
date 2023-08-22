@@ -49,7 +49,8 @@ const WalletContent = () => {
           <div className="px-24 py-12">
             {portfolioData ? <Portfolio portfolio={portfolioData} /> : (
               <div className="flex justify-center items-center">
-                <div className="spinner"></div>
+                <div className="spinner mr-4"></div>
+                [Portfolio data is loaded live, can take up to a minute...]
               </div>
             )}
             <div className="flex items-center justify-center mt-6">

@@ -1,11 +1,26 @@
 import { useState } from 'react';
 
+import PortfolioModal from './modals/portfolio';
+
 const Portfolio = ({ portfolio }) => {
   const [showAll, setShowAll] = useState(false);
-  console.log(portfolio);
+  
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedStrategy, setSelectedStrategy] = useState(null);
+
+  const openModal = (strategy) => {
+    setModalOpen(true);
+    setSelectedStrategy(strategy);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedStrategy(null);
+  };
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+      {isModalOpen && <PortfolioModal data={selectedStrategy} onClose={closeModal} />}
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">Portfolio</h1>
@@ -24,7 +39,7 @@ const Portfolio = ({ portfolio }) => {
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Strategy</th>
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Shareholder?</th>
                   <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Latest Position (PnL)</th>
-                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Chart Over Time</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Position Value Over Time</th>
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -41,7 +56,7 @@ const Portfolio = ({ portfolio }) => {
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.strategy.substr(0, 25) + '...'}</td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{item.isShareholder ? '✅' : '❌'}</td>
                         <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">{parseFloat(item.position?.current?.totalPnl?.sol).toPrecision(3) + " ◎ ($" + parseFloat(item.position?.current?.totalPnl.usd).toPrecision(4) + ")" || '(no position found)'}</td>
-                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500">Coming soon</td>
+                        <td className="whitespace-nowrap px-3 py-2 text-sm text-gray-500"><button onClick={() => openModal(item)} className='underline hover:opacity-50'>View Chart</button></td>
                       </tr>
                     );
                   }
