@@ -15,6 +15,7 @@ module.exports = {
     },
     colors: {
       'kamino-bg': '#0a0f1d',
+      'opos-bg': '#9946ff',
     },
   },
   plugins: [],
