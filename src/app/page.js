@@ -93,8 +93,7 @@ function HomePage() {
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-4xl font-bold tracking-tight text-white">Discover strategies</h2>
           <p className="mt-6 text-md leading-8 text-gray-300">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-            fugiat veniam occaecat fugiat aliqua.
+            As automated management strategies, Kamino Vaults are designed to maximize yield while removing the need to actively maintain a CLMM position.
           </p>
         </div>
         <div className="px-24 mt-12">

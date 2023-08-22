@@ -20,10 +20,9 @@ function HomePage() {
       <Header />
       <div className="bg-gray-900 px-6 mt-12 mb-24">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-white">Find your optimal pool</h2>
+          <h2 className="text-4xl font-bold tracking-tight text-white"><i>Dive</i> into pools</h2>
           <p className="mt-6 text-md leading-8 text-gray-300">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-            fugiat veniam occaecat fugiat aliqua.
+            While historical data is not indicative of future performance, it remains a key factor of consideration for individuals of different risk tolerances and investment strategies. Sift with ease the historical data of dozens of pools across Raydium and Orca.
           </p>
         </div>
         <div className="mt-12 px-24">
