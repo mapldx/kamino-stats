@@ -73,12 +73,14 @@ async function get_pnl(shareholder) {
         strategy.position.current = pnl.data;
       })
       .catch(function (error) {
+        console.log(error);
       })
     await axios.get(history)
       .then(async function (history) {
         strategy.position.history = history.data;
       })
       .catch(function (error) {
+        console.log(error);
       })
   }
 }
@@ -168,9 +170,11 @@ async function interpret_strategy() {
               })
           })
           .catch(function (error) {
+            console.log(error);
           })
       }
     } catch (error) {
+      console.log(error);
       strategy.tokenAMint = null;
       strategy.tokenBMint = null;
     }

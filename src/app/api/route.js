@@ -19,5 +19,5 @@ export async function GET(request) {
     }));
     return NextResponse.json({ message: "OK" }, { status: 200 });
   }
-  return NextResponse.json({ message: "NULL" }, { status: 200 });
+  return NextResponse.json({ message: "NULL" }, { status: 400 });
 }
